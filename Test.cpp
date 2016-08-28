@@ -1,4 +1,4 @@
-// Test.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+// Test.cpp : å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
 //
 #include "utils.h"
 #include "stdafx.h"
@@ -55,6 +55,7 @@ void mixshow1(IplImage* img0,IplImage* img1)
 	cvSetImageROI(mix,rect);
 	cvCopy(img1,mix);
 	cvResetImageROI(mix);
+	ghjuighjkl
 	cvNamedWindow("mix_1",CV_WINDOW_AUTOSIZE);
 	cvShowImage("mix_1",mix);
 };
@@ -77,21 +78,21 @@ int _tmain(int argc, _TCHAR* argv[])
 	//sum_rgb(imgl,gray);
 	//sum_rgb(imgr,gray2);
 
-	//¶ÔµÚÒ»·ùÍ¼µÄ´¦Àí
-	IplImage* imgl = cvLoadImage("E:\\test2.jpg");//¶ÁÈ¡
-	IplImage *gray = cvCreateImage(cvGetSize(imgl), IPL_DEPTH_8U, 1);//´´½¨»Ò¶ÈÍ¼
-	cvCvtColor(imgl, gray, CV_RGB2GRAY);//×ªÎª»Ò¶ÈÍ¼
-	cvSmooth(gray,gray, CV_GAUSSIAN ,5,5);//Ê×ÏÈÂË²¨È¥³ıÔëµã
-	cvNormalize(gray,gray, 1, 255, CV_MINMAX, NULL);	//Í¼Ïñ¹éÒ»»¯
-	cvAdaptiveThreshold(gray,gray,255,CV_ADAPTIVE_THRESH_MEAN_C,CV_THRESH_BINARY,3,2);//²ÉÈ¡×ÔÊÊÓ¦ãĞÖµµÄ·½·¨
-		cvErode(gray,gray,0,2);//¸¯Ê´Á½´Î
-	cvDilate(gray,gray,0,2);//ÅòÕÍÁ½´Î£¨ÓĞĞ©Çé¿ö²»¼ÓÅòÕÍ¿ÉÒÔ£¬µ«ÊÇÓĞÊ±ºòÃ»ÓĞÅòÕÍ»á³öÏÖ»­µÄ²»¶ÔµÄÇé¿ö£¬ËùÒÔÓÃÅòÕÍ±£³ÖÎÈ¶¨ĞÔ£©
+	//å¯¹ç¬¬ä¸€å¹…å›¾çš„å¤„ç†
+	IplImage* imgl = cvLoadImage("E:\\test2.jpg");//è¯»å–
+	IplImage *gray = cvCreateImage(cvGetSize(imgl), IPL_DEPTH_8U, 1);//åˆ›å»ºç°åº¦å›¾
+	cvCvtColor(imgl, gray, CV_RGB2GRAY);//è½¬ä¸ºç°åº¦å›¾
+	cvSmooth(gray,gray, CV_GAUSSIAN ,5,5);//é¦–å…ˆæ»¤æ³¢å»é™¤å™ªç‚¹
+	cvNormalize(gray,gray, 1, 255, CV_MINMAX, NULL);	//å›¾åƒå½’ä¸€åŒ–
+	cvAdaptiveThreshold(gray,gray,255,CV_ADAPTIVE_THRESH_MEAN_C,CV_THRESH_BINARY,3,2);//é‡‡å–è‡ªé€‚åº”é˜ˆå€¼çš„æ–¹æ³•
+		cvErode(gray,gray,0,2);//è…èš€ä¸¤æ¬¡
+	cvDilate(gray,gray,0,2);//è†¨èƒ€ä¸¤æ¬¡ï¼ˆæœ‰äº›æƒ…å†µä¸åŠ è†¨èƒ€å¯ä»¥ï¼Œä½†æ˜¯æœ‰æ—¶å€™æ²¡æœ‰è†¨èƒ€ä¼šå‡ºç°ç”»çš„ä¸å¯¹çš„æƒ…å†µï¼Œæ‰€ä»¥ç”¨è†¨èƒ€ä¿æŒç¨³å®šæ€§ï¼‰
 	cvFindContours(gray, storage, &contour, sizeof(CvContour),CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
 	cvDrawContours(gray, contour, CV_RGB(0,0,255), CV_RGB(0,0,255), 2,2,8, cvPoint(0,0)); 
-	int area,maxArea = 10;//ÉèÃæ»ı×î´óÖµ´óÓÚ10Pixel
+	int area,maxArea = 10;//è®¾é¢ç§¯æœ€å¤§å€¼å¤§äº10Pixel
 	for(;contour;contour = contour->h_next)  
 		{  
-			area = fabs(cvContourArea( contour, CV_WHOLE_SEQ )); //»ñÈ¡µ±Ç°ÂÖÀªÃæ»ı  
+			area = fabs(cvContourArea( contour, CV_WHOLE_SEQ )); //è·å–å½“å‰è½®å»“é¢ç§¯  
 			if(area > maxArea && area<((imgl->width)*(imgl->height)/1.5))  
 			{  
 				
@@ -102,21 +103,21 @@ int _tmain(int argc, _TCHAR* argv[])
 	aRect = cvBoundingRect(contmax, 0 );  
 	//drawRect( imgl,aRect);
 
-	//¶ÔµÚ¶ş·ùÍ¼µÄ´¦Àí
+	//å¯¹ç¬¬äºŒå¹…å›¾çš„å¤„ç†
 	IplImage* imgr = cvLoadImage("E:\\test3.jpg");
 	IplImage *gray2 = cvCreateImage(cvGetSize(imgr), IPL_DEPTH_8U, 1);
 	cvCvtColor(imgr, gray2, CV_RGB2GRAY);
 	cvSmooth(gray2,gray2, CV_GAUSSIAN ,5,5);
 	cvNormalize(gray2,gray2, 1, 255, CV_MINMAX, NULL);
-	cvAdaptiveThreshold(gray2,gray2,255,CV_ADAPTIVE_THRESH_MEAN_C,CV_THRESH_BINARY,3,2);//²ÉÈ¡×ÔÊÊÓ¦ãĞÖµµÄ·½·¨
+	cvAdaptiveThreshold(gray2,gray2,255,CV_ADAPTIVE_THRESH_MEAN_C,CV_THRESH_BINARY,3,2);//é‡‡å–è‡ªé€‚åº”é˜ˆå€¼çš„æ–¹æ³•
 	cvErode(gray2,gray2,0,2);
 	cvDilate(gray2,gray2,0,2);
 	cvFindContours(gray2, storage2, &contour2, sizeof(CvContour),CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cvPoint(0,0));
 	cvDrawContours(gray2, contour2, CV_RGB(0,0,255), CV_RGB(0,0,255), 2,2,8, cvPoint(0,0)); 
-	area,maxArea = 10;//ÉèÃæ»ı×î´óÖµ´óÓÚ10Pixel
+	area,maxArea = 10;//è®¾é¢ç§¯æœ€å¤§å€¼å¤§äº10Pixel
 	for(;contour2;contour2 = contour2->h_next)  
 		{  
-			area = fabs(cvContourArea( contour2, CV_WHOLE_SEQ )); //»ñÈ¡µ±Ç°ÂÖÀªÃæ»ı  
+			area = fabs(cvContourArea( contour2, CV_WHOLE_SEQ )); //è·å–å½“å‰è½®å»“é¢ç§¯  
 			if(area > maxArea && area<((imgl->width)*(imgl->height)/1.5))  
 			{  
 				
@@ -128,11 +129,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	aRect2 = cvBoundingRect(contmax2, 0 );  
 	//drawRect( imgr,aRect2);
 
-	//ÕÒµ½Ä¿±ê¿òÖ®ºóµÄ´¦Àí£¬ÉèROI¿ªÊ¼Æ¥Åä
-	//cvSetImageROI(imgl,cvRect(aRect.x,aRect.y,aRect.width,aRect.height));//t2Ê±¿ÌµÄ¸ĞĞËÈ¤ÇøÓò£¬¼´Ä¿±êÇøÓò
-	//cvSetImageROI(imgr,cvRect(aRect2.x,aRect2.y,aRect2.width,aRect2.height));//t2Ê±¿ÌµÄ¸ĞĞËÈ¤ÇøÓò£¬¼´Ä¿±êÇøÓò
+	//æ‰¾åˆ°ç›®æ ‡æ¡†ä¹‹åçš„å¤„ç†ï¼Œè®¾ROIå¼€å§‹åŒ¹é…
+	//cvSetImageROI(imgl,cvRect(aRect.x,aRect.y,aRect.width,aRect.height));//t2æ—¶åˆ»çš„æ„Ÿå…´è¶£åŒºåŸŸï¼Œå³ç›®æ ‡åŒºåŸŸ
+	//cvSetImageROI(imgr,cvRect(aRect2.x,aRect2.y,aRect2.width,aRect2.height));//t2æ—¶åˆ»çš„æ„Ÿå…´è¶£åŒºåŸŸï¼Œå³ç›®æ ‡åŒºåŸŸ
 
-	surfDetDes(imgl,ipts1,true,3,3,5,0.0001f);// »ñÈ¡t1Ê±¿Ì×óÍ¼µÄÌØÕ÷µã
+	surfDetDes(imgl,ipts1,true,3,3,5,0.0001f);// è·å–t1æ—¶åˆ»å·¦å›¾çš„ç‰¹å¾ç‚¹
 		  for (int i = 0; i <ipts1.size(); i++)
       {
 		   //matches[i].first.x= matches[i].first.x;
@@ -142,7 +143,7 @@ int _tmain(int argc, _TCHAR* argv[])
            drawPoint(imgl,ipts1[i]);
 	 }
 
-	surfDetDes(imgr,ipts2,true,3,3,5,0.0001f);// »ñÈ¡t1Ê±¿Ì×óÍ¼µÄÌØÕ÷µã
+	surfDetDes(imgr,ipts2,true,3,3,5,0.0001f);// è·å–t1æ—¶åˆ»å·¦å›¾çš„ç‰¹å¾ç‚¹
 			  for (int i = 0; i <ipts2.size(); i++)
       {
 		   //matches[i].first.x= matches[i].first.x;
@@ -151,7 +152,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		   //matches[i].second.y= matches[i].second.y;
            drawPoint(imgr,ipts2[i]);
 	 }
-	//getMatches(ipts1,ipts2,matches);//Æ¥ÅäÇ°ºóÊ±¿ÌµÄ×óÍ¼µÄÌØÕ÷µã
+	//getMatches(ipts1,ipts2,matches);//åŒ¹é…å‰åæ—¶åˆ»çš„å·¦å›¾çš„ç‰¹å¾ç‚¹
 	//  for (int i = 0; i < matches.size(); i++)
  //     {
 	//	   //matches[i].first.x= matches[i].first.x;
@@ -165,61 +166,61 @@ int _tmain(int argc, _TCHAR* argv[])
 	//cvResetImageROI(imgr);
 	//IplImage *stacked;
 	//IplImage *stacked_ransac;
-	//	 struct kd_node *kd_root;//k-dÊ÷µÄÊ÷¸ù
+	//	 struct kd_node *kd_root;//k-dæ ‘çš„æ ‘æ ¹
 
-	//stacked = stack_imgs( imgl, imgr );//ºÏ³ÉÍ¼Ïñ£¬ÏÔÊ¾¾­¾àÀë±ÈÖµ·¨É¸Ñ¡ºóµÄÆ¥Åä½á¹û  
- //   stacked_ransac = stack_imgs( imgl, imgr );//ºÏ³ÉÍ¼Ïñ£¬ÏÔÊ¾¾­RANSACËã·¨É¸Ñ¡ºóµÄÆ¥Åä½á¹û  
- // //¸ù¾İÍ¼2µÄÌØÕ÷µã¼¯feat2½¨Á¢k-dÊ÷£¬·µ»Øk-dÊ÷¸ù¸økd_root  
+	//stacked = stack_imgs( imgl, imgr );//åˆæˆå›¾åƒï¼Œæ˜¾ç¤ºç»è·ç¦»æ¯”å€¼æ³•ç­›é€‰åçš„åŒ¹é…ç»“æœ  
+ //   stacked_ransac = stack_imgs( imgl, imgr );//åˆæˆå›¾åƒï¼Œæ˜¾ç¤ºç»RANSACç®—æ³•ç­›é€‰åçš„åŒ¹é…ç»“æœ  
+ // //æ ¹æ®å›¾2çš„ç‰¹å¾ç‚¹é›†feat2å»ºç«‹k-dæ ‘ï¼Œè¿”å›k-dæ ‘æ ¹ç»™kd_root  
  //   kd_root = kdtree_build( ipts1,  );  
-	////±éÀúÌØÕ÷µã¼¯feat1£¬Õë¶Ôfeat1ÖĞÃ¿¸öÌØÕ÷µãfeat£¬Ñ¡È¡·ûºÏ¾àÀë±ÈÖµÌõ¼şµÄÆ¥Åäµã£¬·Åµ½featµÄfwd_matchÓòÖĞ  
+	////éå†ç‰¹å¾ç‚¹é›†feat1ï¼Œé’ˆå¯¹feat1ä¸­æ¯ä¸ªç‰¹å¾ç‚¹featï¼Œé€‰å–ç¬¦åˆè·ç¦»æ¯”å€¼æ¡ä»¶çš„åŒ¹é…ç‚¹ï¼Œæ”¾åˆ°featçš„fwd_matchåŸŸä¸­  
  //   for(int i = 0; i < n1; i++ )  
  //   {  
- //       feat = feat1+i;//µÚi¸öÌØÕ÷µãµÄÖ¸Õë  
- //       //ÔÚkd_rootÖĞËÑË÷Ä¿±êµãfeatµÄ2¸ö×î½üÁÚµã£¬´æ·ÅÔÚnbrsÖĞ£¬·µ»ØÊµ¼ÊÕÒµ½µÄ½üÁÚµã¸öÊı  
+ //       feat = feat1+i;//ç¬¬iä¸ªç‰¹å¾ç‚¹çš„æŒ‡é’ˆ  
+ //       //åœ¨kd_rootä¸­æœç´¢ç›®æ ‡ç‚¹featçš„2ä¸ªæœ€è¿‘é‚»ç‚¹ï¼Œå­˜æ”¾åœ¨nbrsä¸­ï¼Œè¿”å›å®é™…æ‰¾åˆ°çš„è¿‘é‚»ç‚¹ä¸ªæ•°  
  //       int k = kdtree_bbf_knn( kd_root, feat, 2, &nbrs, KDTREE_BBF_MAX_NN_CHKS );  
  //       if( k == 2 )  
  //       {  
- //           d0 = descr_dist_sq( feat, nbrs[0] );//featÓë×î½üÁÚµãµÄ¾àÀëµÄÆ½·½  
- //           d1 = descr_dist_sq( feat, nbrs[1] );//featÓë´Î½üÁÚµãµÄ¾àÀëµÄÆ½·½  
- //           //Èôd0ºÍd1µÄ±ÈÖµĞ¡ÓÚãĞÖµNN_SQ_DIST_RATIO_THR£¬Ôò½ÓÊÜ´ËÆ¥Åä£¬·ñÔòÌŞ³ı  
+ //           d0 = descr_dist_sq( feat, nbrs[0] );//featä¸æœ€è¿‘é‚»ç‚¹çš„è·ç¦»çš„å¹³æ–¹  
+ //           d1 = descr_dist_sq( feat, nbrs[1] );//featä¸æ¬¡è¿‘é‚»ç‚¹çš„è·ç¦»çš„å¹³æ–¹  
+ //           //è‹¥d0å’Œd1çš„æ¯”å€¼å°äºé˜ˆå€¼NN_SQ_DIST_RATIO_THRï¼Œåˆ™æ¥å—æ­¤åŒ¹é…ï¼Œå¦åˆ™å‰”é™¤  
  //           if( d0 < d1 * NN_SQ_DIST_RATIO_THR )  
- //           {   //½«Ä¿±êµãfeatºÍ×î½üÁÚµã×÷ÎªÆ¥Åäµã¶Ô  
+ //           {   //å°†ç›®æ ‡ç‚¹featå’Œæœ€è¿‘é‚»ç‚¹ä½œä¸ºåŒ¹é…ç‚¹å¯¹  
 	//			pt1.x= cvRound( feat->x );
 	//			pt1.y= cvRound( feat->y );
 	//			pt2.x=cvRound( nbrs[0]->x );
 	//			pt2.y=cvRound( nbrs[0]->y );
- //               pt2.y += img1->height;//ÓÉÓÚÁ½·ùÍ¼ÊÇÉÏÏÂÅÅÁĞµÄ£¬pt2µÄ×İ×ø±ê¼ÓÉÏÍ¼1µÄ¸ß¶È£¬×÷ÎªÁ¬ÏßµÄÖÕµã  
- //               cvLine( stacked, pt1, pt2, CV_RGB(255,0,255), 1, 8, 0 );//»­³öÁ¬Ïß  
- //               matchNum++;//Í³¼ÆÆ¥Åäµã¶ÔµÄ¸öÊı  
- //               feat1[i].fwd_match = nbrs[0];//Ê¹µãfeatµÄfwd_matchÓòÖ¸ÏòÆä¶ÔÓ¦µÄÆ¥Åäµã  
+ //               pt2.y += img1->height;//ç”±äºä¸¤å¹…å›¾æ˜¯ä¸Šä¸‹æ’åˆ—çš„ï¼Œpt2çš„çºµåæ ‡åŠ ä¸Šå›¾1çš„é«˜åº¦ï¼Œä½œä¸ºè¿çº¿çš„ç»ˆç‚¹  
+ //               cvLine( stacked, pt1, pt2, CV_RGB(255,0,255), 1, 8, 0 );//ç”»å‡ºè¿çº¿  
+ //               matchNum++;//ç»Ÿè®¡åŒ¹é…ç‚¹å¯¹çš„ä¸ªæ•°  
+ //               feat1[i].fwd_match = nbrs[0];//ä½¿ç‚¹featçš„fwd_matchåŸŸæŒ‡å‘å…¶å¯¹åº”çš„åŒ¹é…ç‚¹  
  //           }  
  //       }  
- //       free( nbrs );//ÊÍ·Å½üÁÚÊı×é  
+ //       free( nbrs );//é‡Šæ”¾è¿‘é‚»æ•°ç»„  
  //   }  
-	//cout<<"¾­¾àÀë±ÈÖµ·¨É¸Ñ¡ºóµÄÆ¥Åäµã¶Ô¸öÊı£º"<<matchNum<<endl;
-	//cvNamedWindow(IMG_MATCH1);//´´½¨´°¿Ú  
- //   cvShowImage(IMG_MATCH1,stacked);//ÏÔÊ¾  
+	//cout<<"ç»è·ç¦»æ¯”å€¼æ³•ç­›é€‰åçš„åŒ¹é…ç‚¹å¯¹ä¸ªæ•°ï¼š"<<matchNum<<endl;
+	//cvNamedWindow(IMG_MATCH1);//åˆ›å»ºçª—å£  
+ //   cvShowImage(IMG_MATCH1,stacked);//æ˜¾ç¤º  
 
 
- //   //ÀûÓÃRANSACËã·¨É¸Ñ¡Æ¥Åäµã,¼ÆËã±ä»»¾ØÕóH  
+ //   //åˆ©ç”¨RANSACç®—æ³•ç­›é€‰åŒ¹é…ç‚¹,è®¡ç®—å˜æ¢çŸ©é˜µH  
 	////FEATURE_BCK_MATCH
 	////FEATURE_FWD_MATCH
 	////FEATURE_MDL_MATCH
  //   CvMat * H = ransac_xform(feat1,n1,FEATURE_FWD_MATCH,lsq_homog,4,0.01,homog_xfer_err,3.0,&inliers,&n_inliers);  
- //   //±éÀú¾­RANSACËã·¨É¸Ñ¡ºóµÄÌØÕ÷µã¼¯ºÏinliers£¬ÕÒµ½Ã¿¸öÌØÕ÷µãµÄÆ¥Åäµã£¬»­³öÁ¬Ïß  
+ //   //éå†ç»RANSACç®—æ³•ç­›é€‰åçš„ç‰¹å¾ç‚¹é›†åˆinliersï¼Œæ‰¾åˆ°æ¯ä¸ªç‰¹å¾ç‚¹çš„åŒ¹é…ç‚¹ï¼Œç”»å‡ºè¿çº¿  
  //   for(int i=0; i<n_inliers; i++)  
  //   {  
- //       feat = inliers[i];//µÚi¸öÌØÕ÷µã  
+ //       feat = inliers[i];//ç¬¬iä¸ªç‰¹å¾ç‚¹  
 	//	pt1.x=cvRound(feat->x);
 	//	pt1.y=cvRound(feat->y);
  //       pt2.x=cvRound(feat->fwd_match->x);
 	//	pt2.y=cvRound(feat->fwd_match->y);
- //       pt2.y += img1->height;//ÓÉÓÚÁ½·ùÍ¼ÊÇÉÏÏÂÅÅÁĞµÄ£¬pt2µÄ×İ×ø±ê¼ÓÉÏÍ¼1µÄ¸ß¶È£¬×÷ÎªÁ¬ÏßµÄÖÕµã  
- //       cvLine(stacked_ransac,pt1,pt2,CV_RGB(255,0,255),1,8,0);//»­³öÁ¬Ïß  
+ //       pt2.y += img1->height;//ç”±äºä¸¤å¹…å›¾æ˜¯ä¸Šä¸‹æ’åˆ—çš„ï¼Œpt2çš„çºµåæ ‡åŠ ä¸Šå›¾1çš„é«˜åº¦ï¼Œä½œä¸ºè¿çº¿çš„ç»ˆç‚¹  
+ //       cvLine(stacked_ransac,pt1,pt2,CV_RGB(255,0,255),1,8,0);//ç”»å‡ºè¿çº¿  
  //   }  
-	//cout<<"¾­RANSACËã·¨É¸Ñ¡ºóµÄÆ¥Åäµã¶Ô¸öÊı£º"<<n_inliers<<endl;
- //   cvNamedWindow(IMG_MATCH2);//´´½¨´°¿Ú  
- //   cvShowImage(IMG_MATCH2,stacked_ransac);//ÏÔÊ¾ 
+	//cout<<"ç»RANSACç®—æ³•ç­›é€‰åçš„åŒ¹é…ç‚¹å¯¹ä¸ªæ•°ï¼š"<<n_inliers<<endl;
+ //   cvNamedWindow(IMG_MATCH2);//åˆ›å»ºçª—å£  
+ //   cvShowImage(IMG_MATCH2,stacked_ransac);//æ˜¾ç¤º 
 
  // cvReleaseImage( &stacked );
  // cvReleaseImage( &img1 );
@@ -257,22 +258,22 @@ int _tmain(int argc, _TCHAR* argv[])
 //	 //sum_rgb(imgl,gray);
 //	  //cvEqualizeHist(gray,gray);
 //	cvSmooth(gray,gray,CV_GAUSSIAN,5,5);
-//	 cvNormalize(gray, vdispB, 1, 255, CV_MINMAX, NULL);	//Í¼Ïñ¹éÒ»»¯	
+//	 cvNormalize(gray, vdispB, 1, 255, CV_MINMAX, NULL);	//å›¾åƒå½’ä¸€åŒ–	
 //		}
 //		else
 //		{
 //		cvCvtColor(imgr, gray2, CV_RGB2GRAY);
 //	//sum_rgb(imgr,gray2);
 //	cvSmooth(gray2,gray2,CV_GAUSSIAN,5,5);
-//	cvNormalize(gray2, vdispB, 1, 255, CV_MINMAX, NULL);	//Í¼Ïñ¹éÒ»»¯	
+//	cvNormalize(gray2, vdispB, 1, 255, CV_MINMAX, NULL);	//å›¾åƒå½’ä¸€åŒ–	
 //		}
-//	cvAdaptiveThreshold(vdispB,vdisp,255,CV_ADAPTIVE_THRESH_MEAN_C,CV_THRESH_BINARY,3,2);//²ÉÈ¡×ÔÊÊÓ¦ãĞÖµµÄ·½·¨
-//	cvErode(vdisp,vdisp,0,2);//¸¯Ê´Á½´Î
+//	cvAdaptiveThreshold(vdispB,vdisp,255,CV_ADAPTIVE_THRESH_MEAN_C,CV_THRESH_BINARY,3,2);//é‡‡å–è‡ªé€‚åº”é˜ˆå€¼çš„æ–¹æ³•
+//	cvErode(vdisp,vdisp,0,2);//è…èš€ä¸¤æ¬¡
 //	cvDilate(vdisp,vdisp,0,2);
-//	//¶şÖµ»¯ºó
+//	//äºŒå€¼åŒ–å
 //	if(i==0)
 //	cvShowImage("FirGraySmoothHistN",vdisp);
-//	//ÅòÕÍ
+//	//è†¨èƒ€
 ////cvErode(vdisp,vdisp,0,3);
 ////	cvDilate(vdisp,vdisp,0,3);
 //	
@@ -284,11 +285,11 @@ int _tmain(int argc, _TCHAR* argv[])
 //	{
 //	cvShowImage("FirGraySmoothHistDilate2",vdisp);
 //	}
-//	int area,maxArea = 10;//ÉèÃæ»ı×î´óÖµ´óÓÚ10Pixel
+//	int area,maxArea = 10;//è®¾é¢ç§¯æœ€å¤§å€¼å¤§äº10Pixel
 //	CvSeq *contmax = 0;
 //	for(;contour;contour = contour->h_next)  
 //		{  
-//			area = fabs(cvContourArea( contour, CV_WHOLE_SEQ )); //»ñÈ¡µ±Ç°ÂÖÀªÃæ»ı  
+//			area = fabs(cvContourArea( contour, CV_WHOLE_SEQ )); //è·å–å½“å‰è½®å»“é¢ç§¯  
 //			//printf("area == %lf\n", area);  
 //			if(area > maxArea )  
 //			{  
@@ -304,13 +305,13 @@ int _tmain(int argc, _TCHAR* argv[])
 //	}
 //	}
 //	IFir= cvCreateImage(cvSize(aRect.width,aRect.height), imgl->depth,3);
-//	//·Ö±ğÉèÖÃ¸ĞĞËÈ¤ÇøÓò
-//	cvSetImageROI(imgl,cvRect(aRect.x,aRect.y,aRect.width,aRect.height));//t2Ê±¿ÌµÄ¸ĞĞËÈ¤ÇøÓò£¬¼´Ä¿±êÇøÓò
-//	cvSetImageROI(imgr,cvRect(aRect1.x,aRect1.y,aRect1.width,aRect1.height));//t2Ê±¿ÌµÄ¸ĞĞËÈ¤ÇøÓò£¬¼´Ä¿±êÇøÓò
+//	//åˆ†åˆ«è®¾ç½®æ„Ÿå…´è¶£åŒºåŸŸ
+//	cvSetImageROI(imgl,cvRect(aRect.x,aRect.y,aRect.width,aRect.height));//t2æ—¶åˆ»çš„æ„Ÿå…´è¶£åŒºåŸŸï¼Œå³ç›®æ ‡åŒºåŸŸ
+//	cvSetImageROI(imgr,cvRect(aRect1.x,aRect1.y,aRect1.width,aRect1.height));//t2æ—¶åˆ»çš„æ„Ÿå…´è¶£åŒºåŸŸï¼Œå³ç›®æ ‡åŒºåŸŸ
 //
-//	surfDetDes(imgl,ipts1,true,3,3,5,0.0001f);// »ñÈ¡t1Ê±¿Ì×óÍ¼µÄÌØÕ÷µã
-//	surfDetDes(imgr,ipts2,true,3,3,5,0.0001f);// »ñÈ¡t1Ê±¿Ì×óÍ¼µÄÌØÕ÷µã
-//	 getMatches(ipts1,ipts2,matches);//Æ¥ÅäÇ°ºóÊ±¿ÌµÄ×óÍ¼µÄÌØÕ÷µã
+//	surfDetDes(imgl,ipts1,true,3,3,5,0.0001f);// è·å–t1æ—¶åˆ»å·¦å›¾çš„ç‰¹å¾ç‚¹
+//	surfDetDes(imgr,ipts2,true,3,3,5,0.0001f);// è·å–t1æ—¶åˆ»å·¦å›¾çš„ç‰¹å¾ç‚¹
+//	 getMatches(ipts1,ipts2,matches);//åŒ¹é…å‰åæ—¶åˆ»çš„å·¦å›¾çš„ç‰¹å¾ç‚¹
 //	  for (unsigned int i = 0; i < matches.size(); i++)
 //      {
 //		   matches[i].first.x= matches[i].first.x;
